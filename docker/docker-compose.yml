@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+# ======================================================== #
+#                ░█▀█░█▀█░▀█▀░░░█▀█░█░█░█▀█                #
+#                ░█▀█░█▀▀░░█░░░░█▀▀░█▀█░█▀▀                #
+#                ░▀░▀░▀░░░▀▀▀░░░▀░░░▀░▀░▀░░                #
+# ======================================================== #
   api:
     image: php:8.2-apache
     hostname: api_php
@@ -11,7 +16,7 @@ services:
       - ../immo-api-php-main/public:/var/www/html
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.api
 
   database:
     image: mysql:8.0
@@ -28,3 +33,18 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ../immo-api-php-main/sql:/var/lib/mysql
+
+# ======================================================== #
+#                   ░█░█░█░█░█▀▀░▀▀█░█▀▀                   #
+#                   ░▀▄▀░█░█░█▀▀░░░█░▀▀█                   #
+#                   ░░▀░░▀▀▀░▀▀▀░▀▀░░▀▀▀                   #
+# ======================================================== #
+  vue-js:
+    image: node:20-alpine
+    command: /bin/sh -c "npm install && npm install --save-dev vite && npm run dev"
+    ports:
+      - ${VUEJS_PORT}:3000
+    volumes:
+      - "/app/node_modules"
+      - "../immo-client-vue-main/:/app"
+    working_dir: /app
