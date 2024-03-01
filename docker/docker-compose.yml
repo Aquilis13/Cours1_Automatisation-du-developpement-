@@ -48,3 +48,18 @@ services:
       - "/app/node_modules"
       - "../immo-client-vue-main/:/app"
     working_dir: /app
+
+# ======================================================== #
+#                   ░█▀▄░█▀▀░█▀█░█▀▀░▀█▀                   #
+#                   ░█▀▄░█▀▀░█▀█░█░░░░█░                   #
+#                   ░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░                   #
+# ======================================================== #
+  react:
+    image: node:20-alpine
+    command: /bin/sh -c "npm install && npm install --save-dev vite && npm run dev"
+    ports:
+      - ${REACT_PORT}:3000
+    volumes:
+      - "/app/node_modules"
+      - "../immo-admin-react-main/:/app"
+    working_dir: /app
